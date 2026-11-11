@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/isolog.png" />
+    <link rel="preload" as="image" href="/logotipo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="theme-color"
+      content="#10489f"
+    />
+    <title>PIPES · Súper almacén</title>
+    <style>
+      .app-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background:
+          radial-gradient(ellipse at 50% 40%, rgba(16, 72, 159, 0.1), transparent 42%),
+          #f5f7fa;
+        color: #142c4e;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .app-splash__content {
+        display: flex;
+        width: min(86vw, 360px);
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        animation: splash-appear 550ms cubic-bezier(.2,.8,.2,1) both;
+      }
+
+      .app-splash__brand {
+        animation: splash-brand 1.8s ease-in-out infinite;
+      }
+
+      .app-splash__logo {
+        display: block;
+        width: min(76vw, 340px);
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 16px 28px rgba(20, 44, 78, 0.1));
+      }
+
+      .app-splash__loading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #53647b;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+
+      .app-splash__dots {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        margin-left: -6px;
+      }
+
+      .app-splash__dots i {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #10489f;
+        animation: splash-dot 900ms ease-in-out infinite;
+      }
+
+      .app-splash__dots i:nth-child(2) { animation-delay: 150ms; }
+      .app-splash__dots i:nth-child(3) { animation-delay: 300ms; }
+
+      .app-splash__spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(16, 72, 159, 0.18);
+        border-top-color: #10489f;
+        border-radius: 50%;
+        animation: splash-spin 750ms linear infinite;
+      }
+
+      .app-splash__progress {
+        width: min(52vw, 180px);
+        height: 3px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(16, 72, 159, 0.12);
+      }
+
+      .app-splash__progress span {
+        display: block;
+        width: 38%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #10489f, #6ea2ff);
+        animation: splash-progress 1.3s ease-in-out infinite;
+      }
+
+      .app-splash--exit {
+        opacity: 0;
+        transition: opacity 240ms ease;
+      }
+
+      @keyframes splash-spin {
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes splash-brand {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-5px) scale(1.015); }
+      }
+
+      @keyframes splash-dot {
+        0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+        30% { opacity: 1; transform: translateY(-3px); }
+      }
+
+      @keyframes splash-progress {
+        0% { transform: translateX(-120%); }
+        100% { transform: translateX(360%); }
+      }
+
+      @keyframes splash-appear {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .app-splash__content,
+        .app-splash__brand,
+        .app-splash__spinner {
+          animation-duration: 0.01ms;
+        }
+        .app-splash__dots i,
+        .app-splash__progress span {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <main class="app-splash" role="status" aria-live="polite">
+        <div class="app-splash__content">
+          <img
+            class="app-splash__logo"
+            src="/logotipo.png"
+            alt="PIPES Mercado & Beer"
+            fetchpriority="high"
+          />
+          <div class="app-splash__loading">
+            <span class="app-splash__spinner" aria-hidden="true"></span>
+            <span>Preparando tu mercado</span>
+            <span class="app-splash__dots" aria-hidden="true">
+              <i></i><i></i><i></i>
+            </span>
+          </div>
+          <div class="app-splash__progress" aria-hidden="true"><span></span></div>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
